@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'cart_page.dart';
 import 'category_page.dart';
-import 'home_page.dart';
+import 'home_page/home_page.dart';
 import 'member_page.dart';
+import 'package:flutter_shop/tools/tool_screen.dart';
 
 class IndexPage extends StatefulWidget {
   @override
@@ -50,6 +51,7 @@ class _IndexPageState extends State<IndexPage> {
 
   @override
   Widget build(BuildContext context) {
+    ToolScreen.initScreen(context: context, width: 750, height: 1336);
     return Scaffold(
       backgroundColor: Color.fromRGBO(244, 244, 244, 1),
       bottomNavigationBar: BottomNavigationBar(
