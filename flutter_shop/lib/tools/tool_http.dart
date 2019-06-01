@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'dart:async';
 import 'dart:convert'; //json
 
-
+///////////////////////////////////////http base////////////////////////////////////////
 enum HttpMethod {
   Get,
   Post,
@@ -11,7 +11,7 @@ enum HttpMethod {
 String domain = "http://baixingliangfan.cn/baixing/";
 
 class ToolHttp {
-  static Future<HttpResponse> http(
+  static Future<HttpResponse> request(
       {String subUrl, HttpMethod method = HttpMethod.Get, Map params}) async {
     String fullUrl = domain + subUrl;
     try {
@@ -61,10 +61,9 @@ class HttpResponse {
 
       this.code = int.parse(data['code']);
       this.errorMessage = data['message'];
-      this.data = data;
+      this.data = data['data'];
       this.success = this.code == -1 ? false : true;
       this.api = response.request.path;
-      print(this.data);
     }
 
 
@@ -95,3 +94,5 @@ class HttpResponse {
     return description;
   }
 }
+
+
