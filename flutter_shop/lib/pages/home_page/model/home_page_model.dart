@@ -1,3 +1,6 @@
+
+
+/// 首页数据相关的模型
 class HomePageModel {
   List<HomePageSlideModel> slides;
   HomePageShopInfoModel shopInfo;
