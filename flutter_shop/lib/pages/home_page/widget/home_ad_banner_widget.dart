@@ -27,7 +27,7 @@ class HomeAdBannerWidget extends StatelessWidget {
       child: Column(
         children: <Widget>[
           SizedBox(
-            height: ToolScreen.height(10),
+            height: fitPx(10),
             child: Container(
               color: Color.fromRGBO(240, 240, 240, 1),
             ),

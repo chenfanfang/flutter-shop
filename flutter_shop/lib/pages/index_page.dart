@@ -51,7 +51,7 @@ class _IndexPageState extends State<IndexPage> {
 
   @override
   Widget build(BuildContext context) {
-    ToolScreen.initScreen(context: context, width: 750, height: 1336);
+    initScreen(context: context);
     return Scaffold(
       backgroundColor: Color.fromRGBO(244, 244, 244, 1),
       bottomNavigationBar: BottomNavigationBar(

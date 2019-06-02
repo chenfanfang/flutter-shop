@@ -10,11 +10,11 @@ class SlideShowWidget extends StatelessWidget {
 
   SlideShowWidget({this.slideModelList});
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: ToolScreen.height(333),
-        width: ToolScreen.width(750),
+        height: fitPx(180.0),
         child: Swiper(
           pagination: SwiperPagination(
 
