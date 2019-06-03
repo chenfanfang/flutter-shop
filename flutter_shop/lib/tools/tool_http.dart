@@ -15,6 +15,7 @@ class ToolHttp {
       {String subUrl, HttpMethod method = HttpMethod.Get, Map params}) async {
     String fullUrl = domain + subUrl;
     try {
+
       Response response;
       Dio dio = Dio();
 
@@ -32,6 +33,7 @@ class ToolHttp {
       }
 
       HttpResponse httpResp = HttpResponse.forResponse(response);
+
       return httpResp;
     } catch (e) {
 
@@ -47,7 +49,7 @@ const int exceptionCode = -520;
 class HttpResponse {
   bool success;
   int code;
-  Map data;
+  dynamic data;
   String errorMessage; //只有code == '-1'时才会有错误信息
   Response originResponse;
   var exception; //可能是exception 或者是error

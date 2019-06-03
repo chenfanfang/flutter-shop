@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 const double uiWidth = 375.0;
 const double uiHeight = 667.0;
+double screenWidth;
+double screenHeight;
 double pxRatio;
 MediaQueryData mediaQuery;
 
@@ -14,6 +16,8 @@ void initScreen(
   if(mediaQuery == null) {
     mediaQuery = MediaQuery.of(context);
     pxRatio = mediaQuery.size.width / uiWidth;
+    screenWidth = mediaQuery.size.width;
+    screenHeight = mediaQuery.size.height;
   }
 //  _mediaQueryData = mediaQuery;
 //  _pixelRatio = mediaQuery.devicePixelRatio;
@@ -33,5 +37,5 @@ double fitPx(double px) {
 
 
 double fitFontSize(double fontSize) {
-  return ScreenUtil.getInstance().setSp(fontSize);
+  return pxRatio * fontSize;
 }
