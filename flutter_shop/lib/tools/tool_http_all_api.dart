@@ -6,7 +6,6 @@ Future<HttpResponse> getHomeData() async {
 
   HttpResponse response;
   response = await ToolHttp.request(subUrl: 'wxmini/homePageContent',method: HttpMethod.Post, params: params);
-
   return response;
 }
 

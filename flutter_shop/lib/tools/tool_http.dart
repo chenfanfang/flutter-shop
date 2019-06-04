@@ -43,6 +43,8 @@ class ToolHttp {
   }
 }
 
+
+
 // 将Resonse数据包装成HttpResponse，方便点语法的使用
 const int exceptionCode = -520;
 

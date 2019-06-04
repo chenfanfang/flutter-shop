@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/pages/home_page/model/home_page_model.dart';
 import 'package:flutter_shop/tools/tool_screen.dart';
+import '../home_page_Inherited_widget.dart';
 
 /// 首页选择分类的小部件
 class HomeCategoryChooseWidget extends StatelessWidget {
-  final List<HomePageCategoryModel> categoryModelList;
+  List<HomePageCategoryModel> categoryModelList;
   final int crossAxisCount = 5;
   final double itemWidth = fitPx(uiWidth / 5.0);
 
 
-  HomeCategoryChooseWidget({@required this.categoryModelList});
+//  HomeCategoryChooseWidget({@required this.categoryModelList});
 
   Widget _createGridViewItem(
       BuildContext context, HomePageCategoryModel categoryModel) {
@@ -36,6 +37,10 @@ class HomeCategoryChooseWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final HomePageModel homePageModel = HomePageInheritedWidget.of(context).homePageModel;
+    categoryModelList = homePageModel.category;
+
     double childAspectRatio = 0.8;
     int rows = this.categoryModelList.length ~/ crossAxisCount;
     double padding = fitPx(3.0);

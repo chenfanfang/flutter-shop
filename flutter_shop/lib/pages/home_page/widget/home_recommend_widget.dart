@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/tools/tool_screen.dart';
 import 'package:flutter_shop/pages/home_page/model/home_page_model.dart';
+import '../home_page_Inherited_widget.dart';
 
 class HomeRecommendWidget extends StatelessWidget {
-  final List<HomePageRecommendModel> recommendsList;
-
-  HomeRecommendWidget({@required this.recommendsList});
+  List<HomePageRecommendModel> recommendsList;
+//
+//  HomeRecommendWidget({@required this.recommendsList});
 
   List<Widget> _createRecommendsWidgetList(
       {@required double width, @required double height}) {
@@ -50,6 +51,10 @@ class HomeRecommendWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    HomePageModel homePageModel = HomePageInheritedWidget.of(context).homePageModel;
+    this.recommendsList = homePageModel.recommend;
+
     int columns = 2;
     double spacing = fitPx(10);
     double width = (screenWidth - spacing) / columns;

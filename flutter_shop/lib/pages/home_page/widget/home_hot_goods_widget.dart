@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shop/tools/tool_screen.dart';
 import 'package:flutter_shop/pages/home_page/model/home_page_hot_goods_model.dart';
 import 'package:flutter_shop/tools/tool_screen.dart';
+import '../home_page_Inherited_widget.dart';
 
 class HomeHotGoodsWidget extends StatelessWidget {
-  final List<HomePageHotGoodsModel> hotGoodsList;
-
-  HomeHotGoodsWidget({@required this.hotGoodsList});
+  List<HomePageHotGoodsModel> hotGoodsList;
+//
+//  HomeHotGoodsWidget({@required this.hotGoodsList});
 
   Widget _createHotTitleWidget() {
     return Container(
@@ -65,7 +66,6 @@ class HomeHotGoodsWidget extends StatelessWidget {
                           color: Colors.grey,
                           decoration: TextDecoration.lineThrough,
                         ),
-
                       ),
                     ),
                   ],
@@ -80,6 +80,9 @@ class HomeHotGoodsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    this.hotGoodsList = HomePageInheritedWidget.of(context).hotGoodsList;
+
     Container container;
     if (this.hotGoodsList != null) {
       container = Container(
