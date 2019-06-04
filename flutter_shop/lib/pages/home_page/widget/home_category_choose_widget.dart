@@ -42,7 +42,6 @@ class HomeCategoryChooseWidget extends StatelessWidget {
     rows =
         this.categoryModelList.length % crossAxisCount == 0 ? rows : rows + 1;
     double height = itemWidth / 0.8 * rows  + padding * 2;
-    print('height:$height');
 
     return Container(
       height: height,

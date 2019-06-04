@@ -51,6 +51,8 @@ class HomeFloorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    print('===========');
     return Container(
       margin: EdgeInsets.only(top: fitPx(5.0)),
       child: Column(

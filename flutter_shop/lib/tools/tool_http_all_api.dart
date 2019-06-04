@@ -12,7 +12,7 @@ Future<HttpResponse> getHomeData() async {
 
 Future<HttpResponse> getHomeHotGoodsData({int page}) async {
 
-  var params = {'page':'1'};
+  var params = {'page':page};
 
   HttpResponse response;
   response = await ToolHttp.request(subUrl: 'wxmini/homePageBelowConten', method: HttpMethod.Post, params: params);

@@ -4,6 +4,9 @@ import 'package:flutter_shop/tools/tool_screen.dart';
 
 //third
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:flutter_easyrefresh/material_header.dart';
+import 'package:flutter_easyrefresh/material_footer.dart';
+
 
 //tool
 import 'package:flutter_shop/tools/tool_http_all_api.dart';
@@ -33,14 +36,21 @@ class _HomePageState extends State<HomePage>
   List<HomePageHotGoodsModel> hotGoodsList;
   int hotGoodsPage = 1;
 
-  GlobalKey<EasyRefreshState> _easyRefreshKey = new GlobalKey<EasyRefreshState>();
+  GlobalKey<EasyRefreshState> _easyRefreshKey =
+  new GlobalKey<EasyRefreshState>();
+  GlobalKey<RefreshHeaderState> _headerKey =
+  new GlobalKey<RefreshHeaderState>();
+  GlobalKey<RefreshFooterState> _footerKey =
+  new GlobalKey<RefreshFooterState>();
 
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
-  // 加载首页数据
-  void loadHotData() async{
+
+
+  // 加载热门商品数据
+  Future loadHotData() async {
 
     HttpResponse response;
     response = await getHomeHotGoodsData(page: this.hotGoodsPage);
@@ -57,15 +67,17 @@ class _HomePageState extends State<HomePage>
         this.hotGoodsList.add(model);
       });
 
+      this.hotGoodsPage++;
       setState(() {
 
       });
     }
 
+    return this.hotGoodsList;
   }
 
-  //加载热门商品数据
-  void loadHomeData() async {
+  //加载首页数据
+  Future loadHomeData() async {
 
     HttpResponse response;
     response = await getHomeData();
@@ -73,14 +85,14 @@ class _HomePageState extends State<HomePage>
     if (response.success) {
       setState(() {
         this.homePageModel = HomePageModel.fromJson(response.data);
-        this.hotGoodsPage++;
       });
     }
+
+    return this.homePageModel;
   }
 
   Widget _createHomeWidget() {
-    
-    if(this.homePageModel == null) {
+    if (this.homePageModel == null) {
       return Center(
         child: Text('加载数据中...'),
       );
@@ -88,10 +100,12 @@ class _HomePageState extends State<HomePage>
 
     return EasyRefresh(
       key: _easyRefreshKey,
-      onRefresh: () async{
-        this.hotGoodsPage = 1;
-        loadHomeData();
-        loadHotData();
+      refreshHeader: MaterialHeader(key: _headerKey),
+      refreshFooter: MaterialFooter(key: _footerKey),
+      onRefresh: () async {
+
+        await Future.wait([this.loadHotData(), this.loadHomeData()]);
+
       },
       loadMore: () async {
         loadHotData();
@@ -132,6 +146,7 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     this.loadHomeData();
+    this.loadHotData();
     super.initState();
   }
 
@@ -142,11 +157,13 @@ class _HomePageState extends State<HomePage>
           title: Text('Flutter商城'),
         ),
         body: Container(
-          child:_createHomeWidget(),
+          child: _createHomeWidget(),
         )
     );
   }
 }
+
+
 
 
 ///FutureBuilder
@@ -202,3 +219,4 @@ class _HomePageState extends State<HomePage>
           }),
     );
 * */
+

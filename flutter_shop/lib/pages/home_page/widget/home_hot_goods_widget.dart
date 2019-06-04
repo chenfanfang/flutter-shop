@@ -3,8 +3,6 @@ import 'package:flutter_shop/tools/tool_screen.dart';
 import 'package:flutter_shop/pages/home_page/model/home_page_hot_goods_model.dart';
 import 'package:flutter_shop/tools/tool_screen.dart';
 
-
-
 class HomeHotGoodsWidget extends StatelessWidget {
   final List<HomePageHotGoodsModel> hotGoodsList;
 
@@ -33,31 +31,71 @@ class HomeHotGoodsWidget extends StatelessWidget {
         ));
   }
 
-
   Widget _createHotGoodsListWidget() {
-
     double itemWidth = screenWidth / 2.0;
     return Wrap(
-      children: this.hotGoodsList.map((HomePageHotGoodsModel model){
-
+      children: this.hotGoodsList.map((HomePageHotGoodsModel model) {
         return Container(
+          color: Colors.white,
           width: itemWidth,
-          height: itemWidth,
-          color: Colors.blueAccent,
+          height: itemWidth + 70,
+          child: Column(
+            children: <Widget>[
+              Image.network(model.image),
+              Text(model.name),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                margin: EdgeInsets.only(left: fitPx(20), right: fitPx(40)),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        '${model.mallPrice}',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        '${model.price}',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          color: Colors.grey,
+                          decoration: TextDecoration.lineThrough,
+                        ),
+
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         );
-      }).toList();
+      }).toList(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          _createHotTitleWidget(),
-          _createHotGoodsListWidget(),
-        ],
-      ),
-    );
+    Container container;
+    if (this.hotGoodsList != null) {
+      container = Container(
+        child: Column(
+          children: <Widget>[
+            _createHotTitleWidget(),
+            _createHotGoodsListWidget(),
+          ],
+        ),
+      );
+    } else {
+      container = Container(
+        height: 1,
+      );
+    }
+
+    return container;
   }
 }
