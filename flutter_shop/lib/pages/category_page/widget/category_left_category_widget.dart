@@ -22,7 +22,6 @@ class CategoryLeftCategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provide<CategoryPageProvide>(
       builder: (context, child, categoryPageProvide) {
-        print('+++++++++++++++++++${categoryPageProvide.mainCategoryModelList}');
         return Container(
             child: ListView.builder(
           itemBuilder: (BuildContext context, int index) {

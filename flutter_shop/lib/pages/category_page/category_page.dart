@@ -24,9 +24,8 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
-
-  CategoryPageProvide categoryPageProvide;
-  Providers providers;
+  final CategoryPageProvide categoryPageProvide = CategoryPageProvide();
+  final Providers providers = Providers();
 
   //====================================网络请求相关=======================================begin
 
@@ -34,7 +33,7 @@ class _CategoryPageState extends State<CategoryPage> {
     HttpsResponse response;
     response = await apiGetCategoryData();
 
-    if(response.success = false) return;
+    if (response.success = false) return;
 
     List data = response.data;
 
@@ -42,11 +41,6 @@ class _CategoryPageState extends State<CategoryPage> {
       return CategoryPageMainCategoryModel.fromJson(mapData);
     }).toList();
 
-    if(this.providers == null) {
-      this.categoryPageProvide = CategoryPageProvide();
-      this.providers = Providers()
-      ..provide(Provider<CategoryPageProvide>.value(this.categoryPageProvide));
-    }
 
     this.categoryPageProvide.updateMainCategoryModelList(mainCategoryList);
     setState(() {});
@@ -56,15 +50,17 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   void initState() {
+
     // TODO: implement initState
     super.initState();
+    this.providers.provide(Provider<CategoryPageProvide>.value(this.categoryPageProvide));
 
     this.getCategoryData();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (this.categoryPageProvide == null) {
+    if (this.categoryPageProvide.mainCategoryModelList == null) {
       return Container(
         child: Center(
           child: Text('加载中....'),
