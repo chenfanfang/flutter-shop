@@ -21,7 +21,6 @@ class HomePageInheritedWidget extends InheritedWidget {
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) {
     // TODO: implement updateShouldNotify
-    //print('updateShouldNotify');
     return true;
   }
 }

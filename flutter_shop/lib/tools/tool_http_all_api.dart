@@ -1,21 +1,27 @@
 import 'tool_http.dart';
 
 
-Future<HttpResponse> getHomeData() async {
-  var params = {'lon':'115.02932','lat':'35.76189'};
+/// 获取首页数据
+Future<HttpsResponse> apiGetHomeData({Map<String, dynamic> params}) async {
 
-  HttpResponse response;
+  HttpsResponse response;
   response = await ToolHttp.request(subUrl: 'wxmini/homePageContent',method: HttpMethod.Post, params: params);
   return response;
 }
 
-Future<HttpResponse> getHomeHotGoodsData({int page}) async {
+/// 获取首页的热卖商品
+Future<HttpsResponse> apiGetHomeHotGoodsData({Map<String, dynamic> params}) async {
 
-  var params = {'page':page};
-
-  HttpResponse response;
+  HttpsResponse response;
   response = await ToolHttp.request(subUrl: 'wxmini/homePageBelowConten', method: HttpMethod.Post, params: params);
   return response;
+}
 
+/// 获取分类的数据
+Future<HttpsResponse> apiGetCategoryData({Map<String, dynamic> params}) async {
+
+  HttpsResponse response;
+  response = await ToolHttp.request(subUrl: 'wxmini/getCategory', method: HttpMethod.Post, params: params);
+  return response;
 }
 

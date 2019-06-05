@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'cart_page.dart';
-import 'category_page.dart';
+import 'package:flutter_shop/pages/cart_page/cart_page.dart';
+import 'package:flutter_shop/pages/category_page/category_page.dart';
 import 'home_page/home_page.dart';
-import 'member_page.dart';
+import 'package:flutter_shop/pages/menber_page/member_page.dart';
 import 'package:flutter_shop/tools/tool_screen.dart';
 
 class IndexPage extends StatefulWidget {

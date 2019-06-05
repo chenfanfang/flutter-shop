@@ -39,74 +39,45 @@ class _HomePageState extends State<HomePage>
   int hotGoodsPage = 1;
 
   GlobalKey<EasyRefreshState> _easyRefreshKey =
-  new GlobalKey<EasyRefreshState>();
+      new GlobalKey<EasyRefreshState>();
   GlobalKey<RefreshHeaderState> _headerKey =
-  new GlobalKey<RefreshHeaderState>();
+      new GlobalKey<RefreshHeaderState>();
   GlobalKey<RefreshFooterState> _footerKey =
-  new GlobalKey<RefreshFooterState>();
+      new GlobalKey<RefreshFooterState>();
 
-
-  //所有的字widget
+  //所有的子widget
   final List<Widget> childrenWidget = [
     Column(
       children: <Widget>[
-        SlideShowWidget(
-          //slideModelList: this.homePageModel.slides,
-        ),
-        HomeCategoryChooseWidget(
-          // categoryModelList: this.homePageModel.category,
-        ),
-        HomeAdBannerWidget(
-          //bannerModel: this.homePageModel.advertesPicture,
-          //shopInfoModel: this.homePageModel.shopInfo,
-        ),
-        HomeRecommendWidget(
-          //recommendsList: this.homePageModel.recommend,
-        ),
-        HomeFloorWidget(
-          floorIndex: 1,
-          //goodsList: this.homePageModel.floor1,
-          //topBannerPicture: this.homePageModel.floor1Pic,
-        ),
-        HomeFloorWidget(
-          floorIndex: 2,
-          //goodsList: this.homePageModel.floor2,
-          //topBannerPicture: this.homePageModel.floor2Pic,
-        ),
-        HomeFloorWidget(
-          floorIndex: 3,
-          //goodsList: this.homePageModel.floor3,
-          //topBannerPicture: this.homePageModel.floor3Pic,
-        ),
-
-        HomeHotGoodsWidget(
-          //hotGoodsList: this.hotGoodsList,
-        ),
+        SlideShowWidget(),
+        HomeCategoryChooseWidget(),
+        HomeAdBannerWidget(),
+        HomeRecommendWidget(),
+        HomeFloorWidget(floorIndex: 1),
+        HomeFloorWidget(floorIndex: 2),
+        HomeFloorWidget(floorIndex: 3),
+        HomeHotGoodsWidget(),
       ],
     ),
-
-
-
   ];
-
 
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
+  //====================================网络请求相关=======================================begin
   Future loadAllHomeData() async {
     await Future.wait([loadHotData(), loadHomeData()]);
-    setState(() {
-
-    });
+    setState(() {});
 
     return true;
   }
 
   // 加载热门商品数据
   Future loadHotData() async {
-    HttpResponse response;
-    response = await getHomeHotGoodsData(page: this.hotGoodsPage);
+    var params = {'page':this.hotGoodsPage};
+    HttpsResponse response;
+    response = await apiGetHomeHotGoodsData(params: params);
 
     if (response.data != null) {
       if (this.hotGoodsPage == 1) {
@@ -127,8 +98,9 @@ class _HomePageState extends State<HomePage>
 
   //加载首页数据
   Future loadHomeData() async {
-    HttpResponse response;
-    response = await getHomeData();
+    var params = {'lon':'115.02932','lat':'35.76189'};
+    HttpsResponse response;
+    response = await apiGetHomeData(params: params);
 
     if (response.success) {
       this.homePageModel = HomePageModel.fromJson(response.data);
@@ -136,6 +108,8 @@ class _HomePageState extends State<HomePage>
 
     return true;
   }
+
+  //====================================网络请求相关=======================================end
 
   Widget _createHomeWidget() {
     //没数据先显示加载中
@@ -158,12 +132,10 @@ class _HomePageState extends State<HomePage>
         },
         loadMore: () async {
           await loadHotData();
-          setState(() {
-
-          });
+          setState(() {});
         },
         child: ListView(
-            children: this.childrenWidget,
+          children: this.childrenWidget,
         ),
       ),
     );
@@ -171,13 +143,15 @@ class _HomePageState extends State<HomePage>
 
   @override
   void initState() {
+    this.loadAllHomeData();
     super.initState();
 
-    this.loadAllHomeData();
+
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
         appBar: AppBar(
           title: Text('Flutter商城'),
@@ -187,57 +161,3 @@ class _HomePageState extends State<HomePage>
         ));
   }
 }
-
-///FutureBuilder
-/*
-* @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Flutter商城'),
-      ),
-      body: FutureBuilder(
-          future: getHomeData(),
-          builder:
-              (BuildContext context, AsyncSnapshot<HttpResponse> snapshot) {
-            if (snapshot.hasData) {
-              HttpResponse resp = snapshot.data;
-              this.homePageModel = HomePageModel.fromJson(resp.data);
-              return SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    SlideShowWidget(
-                      slideModelList: this.homePageModel.slides,
-                    ),
-                    HomeCategoryChooseWidget(
-                        categoryModelList: this.homePageModel.category),
-                    HomeAdBannerWidget(
-                      bannerModel: this.homePageModel.advertesPicture,
-                      shopInfoModel: this.homePageModel.shopInfo,
-                    ),
-                    HomeRecommendWidget(
-                      recommendsList: this.homePageModel.recommend,
-                    ),
-                    HomeFloorWidget(
-                      goodsList: this.homePageModel.floor1,
-                      topBannerPicture: this.homePageModel.floor1Pic,
-                    ),
-                    HomeFloorWidget(
-                      goodsList: this.homePageModel.floor2,
-                      topBannerPicture: this.homePageModel.floor2Pic,
-                    ),
-                    HomeFloorWidget(
-                      goodsList: this.homePageModel.floor3,
-                      topBannerPicture: this.homePageModel.floor3Pic,
-                    ),
-                  ],
-                ),
-              );
-            } else {
-              return Center(
-                child: Text('加载中...'),
-              );
-            }
-          }),
-    );
-* */

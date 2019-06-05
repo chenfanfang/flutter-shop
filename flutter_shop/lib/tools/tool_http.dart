@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'dart:async';
 import 'dart:convert'; //json
 
+
 ///////////////////////////////////////http base////////////////////////////////////////
 enum HttpMethod {
   Get,
@@ -11,8 +12,8 @@ enum HttpMethod {
 String domain = "http://baixingliangfan.cn/baixing/";
 
 class ToolHttp {
-  static Future<HttpResponse> request(
-      {String subUrl, HttpMethod method = HttpMethod.Get, Map params}) async {
+  static Future<HttpsResponse> request(
+      {String subUrl, HttpMethod method = HttpMethod.Get, Map<String, dynamic> params}) async {
     String fullUrl = domain + subUrl;
     try {
 
@@ -32,12 +33,12 @@ class ToolHttp {
           break;
       }
 
-      HttpResponse httpResp = HttpResponse.forResponse(response);
+      HttpsResponse httpResp = HttpsResponse.forResponse(response);
 
       return httpResp;
     } catch (e) {
 
-      HttpResponse httpResp = HttpResponse.forException(e, fullUrl);
+      HttpsResponse httpResp = HttpsResponse.forException(e, fullUrl);
       return httpResp;
     }
   }
@@ -48,7 +49,7 @@ class ToolHttp {
 // 将Resonse数据包装成HttpResponse，方便点语法的使用
 const int exceptionCode = -520;
 
-class HttpResponse {
+class HttpsResponse { // 本想取类名 HttpResponse，与flutter重名了
   bool success;
   int code;
   dynamic data;
@@ -57,7 +58,7 @@ class HttpResponse {
   var exception; //可能是exception 或者是error
   String api;
 
-  HttpResponse.forResponse(Response response) {
+  HttpsResponse.forResponse(Response response) {
 
     if(response.statusCode == 200) {
       this.originResponse = response;
@@ -73,7 +74,7 @@ class HttpResponse {
 
   }
 
-  HttpResponse.forException(e, String api) {
+  HttpsResponse.forException(e, String api) {
     this.exception = e;
     this.success = false;
     this.code = exceptionCode;
