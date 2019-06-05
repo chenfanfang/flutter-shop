@@ -15,7 +15,7 @@ class _CategoryPageState extends State<CategoryPage> {
   void getCategoryData() async {
     HttpsResponse response;
     response = await apiGetCategoryData();
-    print(response);
+    debugPrint('$response');
 
 
   }
