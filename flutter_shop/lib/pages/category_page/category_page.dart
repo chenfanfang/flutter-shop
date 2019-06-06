@@ -60,7 +60,7 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (this.categoryPageProvide.mainCategoryModelList == null) {
+    if (this.categoryPageProvide.mainCategoryModelList.length == 0) {
       return Container(
         child: Center(
           child: Text('加载中....'),
@@ -82,6 +82,8 @@ class _CategoryPageState extends State<CategoryPage> {
               child: CategoryLeftCategoryWidget(),
             ),
             Container(
+              color: Colors.white,
+              width: screenWidth - leftCategoryWidth,
               child: Column(
                 children: <Widget>[
                   CategoryRightTopCategoryWidget(),

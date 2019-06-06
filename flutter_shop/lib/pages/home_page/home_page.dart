@@ -125,6 +125,7 @@ class _HomePageState extends State<HomePage>
       hotGoodsList: this.hotGoodsList,
       child: EasyRefresh(
         key: _easyRefreshKey,
+        limitScroll: true,
         refreshHeader: MaterialHeader(key: _headerKey),
         refreshFooter: MaterialFooter(key: _footerKey),
         onRefresh: () async {
