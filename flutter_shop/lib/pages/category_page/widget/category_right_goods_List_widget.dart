@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shop/pages/category_page/model/category_page_category_model.dart';
 
 //tool
-import 'package:flutter_shop/tools/tool_screen.dart';
-import 'package:flutter_shop/tools/tool_http_all_api.dart';
-import 'package:flutter_shop/tools/tool_http.dart';
+import 'package:flutter_shop/tools/all_tool.dart';
 
 //provide
 import 'package:provide/provide.dart';
@@ -21,6 +19,8 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/ball_pulse_header.dart';
 import 'package:flutter_easyrefresh/ball_pulse_footer.dart';
 
+
+
 class CategoryRightGoodsListWidget extends StatefulWidget {
   @override
   _CategoryRightGoodsListWidgetState createState() =>
@@ -30,11 +30,11 @@ class CategoryRightGoodsListWidget extends StatefulWidget {
 class _CategoryRightGoodsListWidgetState
     extends State<CategoryRightGoodsListWidget> {
   GlobalKey<EasyRefreshState> _easyRefreshKey =
-  new GlobalKey<EasyRefreshState>();
+      new GlobalKey<EasyRefreshState>();
   GlobalKey<RefreshHeaderState> _headerKey =
-  new GlobalKey<RefreshHeaderState>();
+      new GlobalKey<RefreshHeaderState>();
   GlobalKey<RefreshFooterState> _footerKey =
-  new GlobalKey<RefreshFooterState>();
+      new GlobalKey<RefreshFooterState>();
 
   //获取商品列表网络请求
   void _getCurrentCategoryGoodsList(CategoryPageProvide provide) async {
@@ -54,10 +54,12 @@ class _CategoryRightGoodsListWidgetState
     provide.updateGoodsModelList(goodsList);
   }
 
-  Widget _createWrapItem(CategoryPageGoodsModel model, double width) {
+  Widget _createWrapItem(
+      CategoryPageGoodsModel model, double width, BuildContext context) {
     return InkWell(
       onTap: () {
-        print('${model.goodsName}');
+
+        ToolShowLoding.showLoading();
       },
       child: Container(
         padding: EdgeInsets.only(left: 10, right: 10),
@@ -71,7 +73,6 @@ class _CategoryRightGoodsListWidgetState
               width: width,
             ),
             Container(
-
               height: 50,
               alignment: Alignment.centerLeft,
               child: Text(
@@ -94,7 +95,6 @@ class _CategoryRightGoodsListWidgetState
                       fontSize: fitFontSize(12),
                     ),
                   ),
-
                   SizedBox(
                     width: 10.0,
                   ),
@@ -121,10 +121,10 @@ class _CategoryRightGoodsListWidgetState
     super.initState();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
+    //showDialog(context: context);
+
     return Provide<CategoryPageProvide>(
       builder: (context, child, provide) {
         List<CategoryPageGoodsModel> goodsList = provide.goodsModelList;
@@ -147,19 +147,13 @@ class _CategoryRightGoodsListWidgetState
                 refreshFooter: BallPulseFooter(
                   key: _footerKey,
                   color: Colors.pink,
-
                 ),
-                onRefresh: () async {
-
-                },
-                loadMore: () async {
-
-                },
+                onRefresh: () async {},
+                loadMore: () async {},
                 child: SingleChildScrollView(
-
                   child: Wrap(
                     children: goodsList.map((CategoryPageGoodsModel model) {
-                      return _createWrapItem(model, eachItemWidth);
+                      return _createWrapItem(model, eachItemWidth, context);
                     }).toList(),
                   ),
                 ),

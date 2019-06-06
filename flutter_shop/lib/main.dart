@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'pages/index_page.dart';
 import 'package:flutter/rendering.dart';
 
+import 'tools/all_tool.dart';
+
 
 void main() {
   debugPaintSizeEnabled = false;
@@ -11,6 +13,7 @@ void main() {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Colors.pink,

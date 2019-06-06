@@ -1,4 +1,5 @@
 import 'tool_http.dart';
+export 'tool_http.dart';
 
 /// 获取首页数据
 Future<HttpsResponse> apiGetHomeData({Map<String, dynamic> params}) async {

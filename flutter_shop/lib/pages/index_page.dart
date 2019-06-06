@@ -4,6 +4,7 @@ import 'package:flutter_shop/pages/category_page/category_page.dart';
 import 'home_page/home_page.dart';
 import 'package:flutter_shop/pages/menber_page/member_page.dart';
 import 'package:flutter_shop/tools/tool_screen.dart';
+import 'package:flutter_shop/tools/all_tool.dart';
 
 class IndexPage extends StatefulWidget {
   @override
@@ -47,15 +48,18 @@ class _IndexPageState extends State<IndexPage> {
     // TODO: implement initState
     currentPage = pages[currentPageIndex];
     super.initState();
+
   }
+
+
 
   @override
   Widget build(BuildContext context) {
     initScreen(context: context);
+    ToolShowLoding.init(context);
     return Scaffold(
       backgroundColor: Color.fromRGBO(244, 244, 244, 1),
       bottomNavigationBar: BottomNavigationBar(
-
         items: bottomNavBarItems,
         currentIndex: currentPageIndex,
         type: BottomNavigationBarType.fixed,
@@ -66,7 +70,6 @@ class _IndexPageState extends State<IndexPage> {
           });
         },
       ),
-
       body: IndexedStack(
         index: currentPageIndex,
         children: pages,

@@ -8,8 +8,7 @@ import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 
 //tool
-import 'package:flutter_shop/tools/tool_http_all_api.dart';
-import 'package:flutter_shop/tools/tool_http.dart';
+import 'package:flutter_shop/tools/all_tool.dart';
 
 //widget
 import 'package:flutter_shop/pages/home_page/widget/home_slide_show_widget.dart';
@@ -67,9 +66,10 @@ class _HomePageState extends State<HomePage>
 
   //====================================网络请求相关=======================================begin
   Future loadAllHomeData() async {
+
+
     await Future.wait([loadHotData(), loadHomeData()]);
     setState(() {});
-
     return true;
   }
 
@@ -144,14 +144,21 @@ class _HomePageState extends State<HomePage>
 
   @override
   void initState() {
-    this.loadAllHomeData();
+//    showDialog(context: context);
+
+
     super.initState();
+    this.loadAllHomeData();
 
 
   }
 
+
+
+
   @override
   Widget build(BuildContext context) {
+
     super.build(context);
     return Scaffold(
         appBar: AppBar(
