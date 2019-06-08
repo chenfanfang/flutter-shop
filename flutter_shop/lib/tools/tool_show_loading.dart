@@ -18,26 +18,31 @@ class ToolShowLoding {
   }
 
   static void showLoading() async {
-    print('showLoadingContext:$showLoadingContext');
     if (isShowing == true) return;
     isShowing = true;
-    showDialog(
-      barrierDismissible: false,
-      context: showLoadingContext,
-      builder: (context) {
-        return Center(
 
-          child: Container(
-            width: 100,
-            height: 100,
-            color: Color.fromRGBO(50, 50, 50, 1),
-            child: SpinKitFadingCircle(
-              color: Colors.white,
+    Future.delayed(Duration(microseconds: 5),(){
+      showDialog(
+        barrierDismissible: false,
+        context: showLoadingContext,
+        builder: (context) {
+          return Center(
+
+            child: Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(50, 50, 50, 1),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              ),
+              child: SpinKitFadingCircle(
+                color: Colors.white,
+              ),
             ),
-          ),
-        );
-      },
-    );
+          );
+        },
+      );
+    });
   }
 
   static void dismissLoading() {

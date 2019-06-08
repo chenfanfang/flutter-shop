@@ -66,16 +66,18 @@ class _HomePageState extends State<HomePage>
 
   //====================================网络请求相关=======================================begin
   Future loadAllHomeData() async {
-
+    ToolShowLoding.showLoading();
 
     await Future.wait([loadHotData(), loadHomeData()]);
     setState(() {});
+
+    ToolShowLoding.dismissLoading();
     return true;
   }
 
   // 加载热门商品数据
   Future loadHotData() async {
-    var params = {'page':this.hotGoodsPage};
+    var params = {'page': this.hotGoodsPage};
     HttpsResponse response;
     response = await apiGetHomeHotGoodsData(params: params);
 
@@ -98,7 +100,7 @@ class _HomePageState extends State<HomePage>
 
   //加载首页数据
   Future loadHomeData() async {
-    var params = {'lon':'115.02932','lat':'35.76189'};
+    var params = {'lon': '115.02932', 'lat': '35.76189'};
     HttpsResponse response;
     response = await apiGetHomeData(params: params);
 
@@ -144,21 +146,14 @@ class _HomePageState extends State<HomePage>
 
   @override
   void initState() {
-//    showDialog(context: context);
-
-
     super.initState();
     this.loadAllHomeData();
-
 
   }
 
 
-
-
   @override
   Widget build(BuildContext context) {
-
     super.build(context);
     return Scaffold(
         appBar: AppBar(
