@@ -21,7 +21,7 @@ class ToolShowLoding {
     if (isShowing == true) return;
     isShowing = true;
 
-    Future.delayed(Duration(microseconds: 5),(){
+    Future.delayed(Duration(microseconds: 20),(){
       showDialog(
         barrierDismissible: false,
         context: showLoadingContext,
