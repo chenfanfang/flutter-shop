@@ -45,7 +45,7 @@ class HomeHotGoodsWidget extends StatelessWidget {
       children: this.hotGoodsList.map((HomePageHotGoodsModel model) {
         return InkWell(
           onTap: () {
-            GoodsDetailPage goodsDetailPage = GoodsDetailPage();
+            GoodsDetailPage goodsDetailPage = GoodsDetailPage(goodsId: model.goodsId,);
             push(context, goodsDetailPage);
           },
           child: Container(

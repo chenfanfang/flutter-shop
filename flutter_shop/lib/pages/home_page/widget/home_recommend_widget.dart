@@ -1,19 +1,26 @@
+//flutter
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/tools/tool_screen.dart';
+//tool
+import 'package:flutter_shop/tools/all_tool.dart';
+//model
 import 'package:flutter_shop/pages/home_page/model/home_page_model.dart';
+//inherited
 import '../home_page_Inherited_widget.dart';
+//page
+import 'package:flutter_shop/pages/goods_detail_page/goods_detail_page.dart';
 
 class HomeRecommendWidget extends StatelessWidget {
   List<HomePageRecommendModel> recommendsList;
 //
 //  HomeRecommendWidget({@required this.recommendsList});
 
-  List<Widget> _createRecommendsWidgetList(
+  List<Widget> _createRecommendsWidgetList(BuildContext context,
       {@required double width, @required double height}) {
     return this.recommendsList.map((HomePageRecommendModel model) {
       return InkWell(
         onTap: () {
-          print('点击了推荐商品:${model.goodsName}');
+          GoodsDetailPage page = GoodsDetailPage(goodsId: model.goodsId);
+          push(context, page);
         },
 
         child: Container(
@@ -79,7 +86,7 @@ class HomeRecommendWidget extends StatelessWidget {
             ),
           ),
           Wrap(
-            children: _createRecommendsWidgetList(width: width, height: width),
+            children: _createRecommendsWidgetList(context,width: width, height: width),
           ),
         ],
       ),

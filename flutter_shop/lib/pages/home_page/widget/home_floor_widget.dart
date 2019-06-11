@@ -1,7 +1,13 @@
+//flutter
 import 'package:flutter/material.dart';
+//model
 import 'package:flutter_shop/pages/home_page/model/home_page_model.dart';
-import 'package:flutter_shop/tools/tool_screen.dart';
+//tool
+import 'package:flutter_shop/tools/all_tool.dart';
+//inherited
 import '../home_page_Inherited_widget.dart';
+//page
+import 'package:flutter_shop/pages/goods_detail_page/goods_detail_page.dart';
 
 
 class HomeFloorWidget extends StatelessWidget {
@@ -12,11 +18,13 @@ class HomeFloorWidget extends StatelessWidget {
 //  HomeFloorWidget({@required this.goodsList, @required this.topBannerPicture});
   HomeFloorWidget({@required this.floorIndex});
 
-  Widget _createCanClickImageWidget({@required HomePageGoodsModel model}) {
+  Widget _createCanClickImageWidget(BuildContext context,{@required HomePageGoodsModel model}) {
 
     return InkWell (
       onTap: () {
-        print('点击了商品:${model.image}');
+        GoodsDetailPage page = GoodsDetailPage(goodsId: model.goodsId);
+        push(context, page);
+
       },
       child: Image.network(model.image),
     );
@@ -33,19 +41,19 @@ class HomeFloorWidget extends StatelessWidget {
     );
   }
 
-  Widget _createGoodsWidget() {
+  Widget _createGoodsWidget(BuildContext context) {
 
     return Container(
       child: Row(
         children: <Widget>[
           Expanded(
-            child: _createCanClickImageWidget(model: this.goodsList[0]),
+            child: _createCanClickImageWidget(context,model: this.goodsList[0]),
           ),
           Expanded(
             child: Column(
               children: <Widget>[
-                _createCanClickImageWidget(model: this.goodsList[1]),
-                _createCanClickImageWidget(model: this.goodsList[2]),
+                _createCanClickImageWidget(context,model: this.goodsList[1]),
+                _createCanClickImageWidget(context,model: this.goodsList[2]),
               ],
             ),
           )
@@ -80,7 +88,7 @@ class HomeFloorWidget extends StatelessWidget {
       child: Column(
         children: <Widget>[
           _createTopBannerImageWidget(),
-          _createGoodsWidget(),
+          _createGoodsWidget(context),
 
         ],
       ),

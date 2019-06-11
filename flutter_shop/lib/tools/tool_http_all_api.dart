@@ -38,3 +38,13 @@ Future<HttpsResponse> apiGetCurrentCategoryGoodsList({
       subUrl: 'wxmini/getMallGoods', method: HttpMethod.Post, params: params);
   return response;
 }
+
+
+/// 获取当前分类中的商品列表数据
+Future<HttpsResponse> apiGetGoodsDetailData({
+  Map<String, dynamic> params}) async {
+  HttpsResponse response;
+  response = await ToolHttp.request(
+      subUrl: 'wxmini/getGoodDetailById', method: HttpMethod.Post, params: params);
+  return response;
+}
